@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>🎂 Happy Birthday Falisha (Pale) • 2026</title>
+  <!-- Tailwind • Quicksand • Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { font-family: 'Quicksand', sans-serif; }
+    body { background: #EDFFF0; margin: 0; }
+    .slide-transition { transition: opacity 0.4s ease-in-out; }
+    .particle-flower {
+      position: absolute;
+      pointer-events: none;
+      color: #F5D2D2;
+      animation: fall linear infinite;
+      z-index: 5;
+      top: -10vh; /* mulai dari luar atas layar */
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
+    }
+    .memory-card {
+      transition: all 0.2s;
+      cursor: pointer;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 15px -6px rgba(0,0,0,0.1);
+    }
+    .memory-card.flipped {
+      background-color: #AEDEFC;
+    }
+    .btn-primary {
+      background-color: #F5D2D2;
+      color: #1f2937;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 8px rgba(245,210,210,0.4);
+      transition: 0.2s;
+      z-index: 20;
+      position: relative;
+    }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .btn-primary:active { transform: scale(0.96); }
+    .input-field {
+      border-radius: 9999px;
+      padding: 0.6rem 1.2rem;
+      border: 2px solid #AEDEFC;
+      outline: none;
+      background: white;
+      width: 100%;
+    }
+    .slide-container {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #EDFFF0 0%, #F5D2D2 30%, #AEDEFC 100%);
+      background-attachment: fixed;
+    }
+    .cake-svg path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 3s ease forwards;
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+    /* notifikasi pop-up modern */
+    .popup-notif {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: white;
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 2rem;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.3), 0 0 0 2px #F5D2D2 inset;
+      z-index: 9999;
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+      opacity: 0;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: translate(-50%, -70%) scale(0.7); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    .popup-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #F5D2D2;
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+      border: none;
+      color: #4b5563;
+    }
+    .popup-close:hover {
+      background: #f0bdbd;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+<div id="app" class="relative slide-container" style="min-height: 100vh;">
+  <!-- SLIDE 1 – LOGIN GATE -->
+  <div id="slide1" class="slide slide-transition absolute inset-0 overflow-auto p-6 flex items-center justify-center opacity-100 visible z-20" style="background: rgba(237,255,240,0.7); backdrop-filter: blur(2px);">
+    <div class="w-full max-w-md bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/50">
+      <div class="text-center mb-8">
+        <i data-lucide="cake" class="w-16 h-16 mx-auto text-[#F5D2D2]"></i>
+        <h2 class="text-3xl font-bold text-gray-700 mt-3">untuk Pale</h2>
+        <p class="text-[#AEDEFC] font-medium">masuk dulu yuk</p>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <label class="block text-gray-600 mb-1 font-semibold">nama kamu</label>
+          <input type="text" id="loginUsername" placeholder="Falisha / Pale" class="input-field">
+        </div>
+        <div class="relative">
+          <label class="block text-gray-600 mb-1 font-semibold">kata sandi</label>
+          <div class="relative">
+            <input type="password" id="loginPassword" placeholder="• • • • • • • •" class="input-field pr-12">
+            <button id="togglePassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+              <i data-lucide="eye" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+        <div id="loginError" class="text-red-400 text-sm font-medium min-h-[24px]"></div>
+        <button id="loginBtn" class="btn-primary w-full flex items-center justify-center gap-2">
+          <i data-lucide="log-in"></i> buka pintu
+        </button>
+      </div>
+      <p class="text-center text-xs text-gray-400 mt-6">— 25 februari 2013  —</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 – CELEBRATION (hero) - perbaikan: overflow-hidden, partikel mulai dari atas -->
+  <div id="slide2" class="slide slide-transition absolute inset-0 overflow-hidden p-5 opacity-0 invisible z-10 flex items-center justify-center" style="background: rgba(237,255,240,0.6);">
+    <div class="w-full max-w-3xl mx-auto text-center relative z-20 flex flex-col items-center justify-center py-10">
+      <!-- SVG CAKE (drawing) -->
+      <div class="relative flex justify-center mb-6">
+        <svg id="cakeSVG" width="280" height="240" viewBox="0 0 300 250" class="drop-shadow-lg">
+          <!-- badan kue -->
+          <path d="M80 160 L220 160 L200 220 L100 220 Z" fill="none" stroke="#F5A7A7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M100 150 Q150 130 200 150 L200 160 L100 160 Z" fill="none" stroke="#F5A7A7" stroke-width="6"/>
+          <!-- lilin -->
+          <path d="M140 110 L160 110 L160 150 L140 150 Z" fill="none" stroke="#AEDEFC" stroke-width="6"/>
+          <!-- api lilin -->
+          <path d="M150 80 Q155 95 150 100 Q145 95 150 80" fill="none" stroke="#F5D2D2" stroke-width="6"/>
+          <!-- hiasan kecil -->
+          <circle cx="130" cy="180" r="5" fill="none" stroke="#AEDEFC" stroke-width="3"/>
+          <circle cx="180" cy="180" r="5" fill="none" stroke="#AEDEFC" stroke-width="3"/>
+        </svg>
+      </div>
+      
+      <div id="birthdayMessage" class="opacity-0 transition-opacity duration-1000 mt-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-pink-400 drop-shadow-md flex items-center justify-center gap-3 flex-wrap">
+          <i data-lucide="heart" class="w-10 h-10 text-[#F5D2D2] fill-current"></i>
+          Happy Birthday Falisha (Pale)!
+          <i data-lucide="heart" class="w-10 h-10 text-[#F5D2D2] fill-current"></i>
+        </h1>
+        <div class="bg-white/50 backdrop-blur-sm p-4 rounded-2xl my-6 inline-block mx-auto">
+          <p class="text-3xl font-bold text-[#AEDEFC]">13 tahun</p>
+          <p class="text-gray-600">(25 Februari 2026)</p>
+        </div>
+        <p class="text-gray-700 text-lg max-w-md mx-auto leading-relaxed">
+          <i data-lucide="star" class="inline w-5 h-5 text-yellow-400"></i> 
+          Semoga hari-harimu selalu dipeluk kebahagiaan, sehat, dan penuh cinta. 
+          <i data-lucide="star" class="inline w-5 h-5 text-yellow-400"></i>
+        </p>
+        <button id="toGamesBtn" class="btn-primary mt-8 flex items-center gap-2 mx-auto">
+          <i data-lucide="gamepad-2"></i> lanjut main yuk
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 – MINI GAMES -->
+  <div id="slide3" class="slide slide-transition absolute inset-0 overflow-auto p-5 opacity-0 invisible z-10 bg-[#EDFFF0]/80">
+    <div class="max-w-3xl mx-auto py-8 px-2">
+      <h2 class="text-3xl font-bold text-center text-[#F5D2D2] flex items-center justify-center gap-2">
+        <i data-lucide="gamepad-2"></i> mini games <i data-lucide="smile"></i>
+      </h2>
+      <p class="text-center text-gray-500 mb-6">selesaikan semua untuk lanjut ke surat</p>
+
+      <!-- game 1: tebak-tebakan -->
+      <div class="bg-white/60 backdrop-blur-sm p-5 rounded-3xl mb-5 border border-white">
+        <div class="flex items-center gap-2 text-xl font-semibold text-[#AEDEFC]">
+          <i data-lucide="message-circle-question"></i> tebak-tebakan
+        </div>
+        <p class="text-gray-600 mt-1">Siapa nama panjang yang berulang tahun hari ini?</p>
+        <div class="flex gap-2 mt-3">
+          <input type="text" id="riddleAnswer" placeholder="Falisha / Pale" class="input-field flex-1">
+          <button id="checkRiddle" class="bg-[#AEDEFC] px-5 py-2 rounded-full font-semibold">cek</button>
+        </div>
+        <div id="riddleFeedback" class="mt-2 text-sm min-h-[24px] flex items-center gap-1"></div>
+      </div>
+
+      <!-- game 2: memory match 2x2 -->
+      <div class="bg-white/60 backdrop-blur-sm p-5 rounded-3xl mb-5 border border-white">
+        <div class="flex items-center gap-2 text-xl font-semibold text-[#AEDEFC]">
+          <i data-lucide="grid-2x2"></i> memory match
+        </div>
+        <div class="grid grid-cols-2 gap-4 max-w-[280px] mx-auto my-4" id="memoryGrid">
+          <!-- diisi js -->
+        </div>
+        <div id="memoryFeedback" class="text-center text-sm text-gray-500"></div>
+      </div>
+
+      <!-- game 3: math challenge -->
+      <div class="bg-white/60 backdrop-blur-sm p-5 rounded-3xl mb-6 border border-white">
+        <div class="flex items-center gap-2 text-xl font-semibold text-[#AEDEFC]">
+          <i data-lucide="calculator"></i> hitung yuk
+        </div>
+        <p class="text-gray-600">Penjumlahan semua angka tanggal lahirmu : 2+5+0+2+2+0+1+3 = ?</p>
+        <div class="flex gap-2 mt-3">
+          <input type="number" id="mathAnswer" class="input-field flex-1" placeholder="angka">
+          <button id="checkMath" class="bg-[#AEDEFC] px-5 py-2 rounded-full font-semibold">cek</button>
+        </div>
+        <div id="mathFeedback" class="mt-2 text-sm min-h-[24px] flex items-center gap-1"></div>
+      </div>
+
+      <!-- tombol unlock surat -->
+      <div class="flex justify-center mt-6">
+        <button id="unlockLettersBtn" class="btn-primary flex items-center gap-2 opacity-50 pointer-events-none" disabled>
+          <i data-lucide="lock"></i> selesaikan games dulu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 – SURAT (message inbox) -->
+  <div id="slide4" class="slide slide-transition absolute inset-0 overflow-auto p-5 opacity-0 invisible z-10 bg-gradient-to-b from-[#EDFFF0] to-[#F5D2D2]">
+    <div class="max-w-xl mx-auto py-8 px-3">
+      <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl min-h-[400px] flex flex-col">
+        <div class="flex items-center gap-2 text-2xl font-bold text-[#F5D2D2] mb-4">
+          <i data-lucide="mail-open"></i> surat untuk Pale
+        </div>
+        <div id="letterContent" class="flex-1 text-gray-700 whitespace-pre-line leading-relaxed"></div>
+        <div class="flex justify-between items-center mt-6">
+          <span id="letterCounter" class="text-sm text-gray-400"></span>
+          <button id="nextLetterBtn" class="btn-primary text-sm px-6 py-2 flex items-center gap-1">
+            selanjutnya <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 – PENUTUP + LIKE (dengan notifikasi pop-up) -->
+  <div id="slide5" class="slide slide-transition absolute inset-0 overflow-auto p-5 opacity-0 invisible z-10 flex flex-col items-center justify-center bg-[#AEDEFC]/30">
+    <div class="max-w-lg bg-white/70 backdrop-blur-lg p-8 rounded-[3rem] text-center border-4 border-white">
+      <i data-lucide="sparkles" class="w-16 h-16 mx-auto text-[#F5D2D2]"></i>
+      <p class="text-2xl font-bold text-gray-700 mt-4 mb-2">Gimaannaa bagus gak website gueee,</p>
+      <p class="text-3xl font-black text-[#F5D2D2]">jangan lupa kasih sukaaa yaaa</p>
+      
+      <div class="flex items-center justify-center gap-4 mt-8">
+        <button id="likeBtn" class="bg-white p-4 rounded-full shadow-lg active:scale-110 transition">
+          <i data-lucide="heart" class="w-10 h-10 text-[#F5D2D2] fill-current"></i>
+        </button>
+        <span id="likeCount" class="text-4xl font-bold text-gray-600">0</span>
+        <span class="text-gray-400 text-xl">/ 100</span>
+      </div>
+      <p class="text-sm text-gray-400 mt-6">— terima kasih sudah tersenyum hari ini —</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- state & helper -----
+    let currentSlide = 1;            // 1-5
+    const slides = {
+      1: document.getElementById('slide1'),
+      2: document.getElementById('slide2'),
+      3: document.getElementById('slide3'),
+      4: document.getElementById('slide4'),
+      5: document.getElementById('slide5')
+    };
+
+    // game completion flags
+    let riddleDone = false;
+    let memoryDone = false;
+    let mathDone = false;
+
+    // memory match state
+    let memoryCards = [];
+    let flippedIndices = [];
+    let matchedPairs = 0;
+    let boardLocked = false;
+
+    // letters state
+    const letters = [
+      `Happyyyyy birthdayyyyy yaa falisha... 
+Hariiiii iniiiiii tuhhhh hariiii spesialllll bangetttttt, karenaaaaaaa duniiaaaa lagiiii ngerayainnnnnn hariiiiii lahirnyaaaa kamuuuuu yangggg superrrrr lucuuuuu, gemessss, dann berhargaaa.. 
+Semogaaaa diiii umurrrr yangggg baruuuu iniiii, kamuuunyaa selaluuuu dikasihhhh kesehatannnn samaa Allahh, kebahagiaannnn yangggg nggakkkk adaaaa habisnyaaaaaa, rezekiiiii yangggg lancarrrrr, dannnn hatiiii yanggggg selaluuuu hangatttt... 
+Semogaaaaa semuaaaa doa-doaaaa baikkkk yangggg seringggg kamuuuu ucapinnn (bahkan yang cuma kamu simpan di hati) satu per satu dikabulkannn olehh Allahh SWT... 
+Kalau kamunyaa capekkkk, kamuu istiraaahhaaat yaaa Kalau sedihhh ceritaaa ke akuuu biaar nyarii soluisii bareng barengg kitaaaa... 
+Terima kasih yaa udaaa  lahirrrr ke dunia ini, sudah jadi diri kamu yang apa adanya, dan sudah bikin hari-hari jadi lebih berwarnaaaaaa... 
+Tetap jadi kamu yang imut, baik, tulus, dan penuh cintaaaaa... 
+Jangan lupa bahagia hari ini, besok, dan seterusnya yaaaaaa..
+
+Meulaboh, 5 Februari 2026
+Nikeisha istri senkuuu`,
+      
+      `happy birthday palee ikan leleee
+semogaa panjang umur, tinggi nya nambah, makin pinterr ya cantii, sehatt selaluu, semogaa orang kamu sayang selalu sehat yupss.. semoga kamu mendapatkan pengganti dirinyaaa
+it's your special day
+#paleesayangkaka
+
+Meulaboh, 5 Februari 2026
+Nara Suka Milo`,
+
+      `Halo Pale! 🎉 (eh ga boleh pake emoji, tapi ini teks)
+Selamat ulang tahun! Kamu tuh kayak sinyal wifi, selalu nyambung sama kebahagiaan. Eh, tapi jangan sampai lemot mikirin yang enggak-enggak ya. Makin cantik, makin kece, makin pinter, dan makin bisa bikin orang sekitar bahagia. Kata orang, umur 13 itu remaja, tapi kamu tetep aja imut kayak anak kucing. Oh iya, aku titip pesan: jangan lupa bahagia, jangan lupa makan, dan jangan lupa kalau kamu itu berharga. Love ya, Pale!
+
+Meulaboh, 5 februari 2026
+Kayz creative`
+    ];
+    let currentLetterIndex = 0;
+
+    // like count
+    let like = 0;
+    let notifShown = false; // supaya notifikasi hanya sekali
+
+    // ----- toggle password visibility -----
+    const togglePwd = document.getElementById('togglePassword');
+    const pwdInput = document.getElementById('loginPassword');
+    if (togglePwd) {
+      togglePwd.addEventListener('click', () => {
+        const type = pwdInput.type === 'password' ? 'text' : 'password';
+        pwdInput.type = type;
+        togglePwd.innerHTML = type === 'password' ? '<i data-lucide="eye"></i>' : '<i data-lucide="eye-off"></i>';
+        lucide.createIcons();
+      });
+    }
+
+    // ----- login handling -----
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const user = document.getElementById('loginUsername').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+      const errorDiv = document.getElementById('loginError');
+      if ((user.toLowerCase() === 'falisha' || user.toLowerCase() === 'pale') && pass === '25022013') {
+        goToSlide(2);
+        animateCakeAndFlowers();
+      } else {
+        errorDiv.innerText = '✗ nama atau sandi salah';
+      }
+    });
+
+    // ----- slide transition -----
+    function goToSlide(target) {
+      Object.values(slides).forEach(s => {
+        s.classList.add('opacity-0', 'invisible');
+        s.classList.remove('opacity-100', 'visible');
+      });
+      slides[target].classList.remove('opacity-0', 'invisible');
+      slides[target].classList.add('opacity-100', 'visible');
+      currentSlide = target;
+      
+      // trigger spesifik
+      if (target === 2) animateCakeAndFlowers();
+      if (target === 3) { resetGames(); renderMemoryBoard(); }
+      if (target === 4) { currentLetterIndex = 0; showLetter(0); }
+      if (target === 5) { /* like di set */ }
+      lucide.createIcons(); // refresh icons
+    }
+
+    // slide 2 special: animasi kue & partikel lebih meriah
+    function animateCakeAndFlowers() {
+      // bersihkan partikel lama jika ada (opsional)
+      const existing = document.querySelectorAll('#slide2 .particle-flower');
+      existing.forEach(el => el.remove());
+      // buat 50 partikel dengan variasi lebih
+      for (let i = 0; i < 50; i++) {
+        createFlowerParticle();
+      }
+      // munculkan pesan setelah kue terlanjut (delay)
+      setTimeout(() => {
+        document.getElementById('birthdayMessage').classList.remove('opacity-0');
+      }, 800);
+    }
+
+    function createFlowerParticle() {
+      const flower = document.createElement('i');
+      flower.setAttribute('data-lucide', 'flower');
+      flower.classList.add('particle-flower');
+      const size = Math.floor(Math.random() * 30 + 16); // 16-46px
+      flower.style.fontSize = size + 'px';
+      flower.style.left = Math.random() * 100 + '%';
+      flower.style.animationDuration = (Math.random() * 6 + 4) + 's'; // 4-10s
+      flower.style.animationDelay = Math.random() * 3 + 's';
+      flower.style.color = `hsl(${Math.random() * 40 + 320}, 80%, 75%)`; // warna pastel pink/ungu
+      document.getElementById('slide2').appendChild(flower);
+      lucide.createIcons();
+      // Hapus setelah animasi selesai agar tidak menumpuk (optional)
+      setTimeout(() => {
+        if (flower.parentNode) flower.remove();
+      }, 15000);
+    }
+
+    // ----- games logic (tetap) -----
+    function resetGames() {
+      riddleDone = false;
+      memoryDone = false;
+      mathDone = false;
+      matchedPairs = 0;
+      memoryCards = [];
+      flippedIndices = [];
+      boardLocked = false;
+      document.getElementById('riddleFeedback').innerHTML = '';
+      document.getElementById('mathFeedback').innerHTML = '';
+      document.getElementById('memoryFeedback').innerText = '';
+      document.getElementById('unlockLettersBtn').innerHTML = '<i data-lucide="lock"></i> selesaikan games dulu';
+      document.getElementById('unlockLettersBtn').disabled = true;
+      document.getElementById('unlockLettersBtn').classList.add('opacity-50', 'pointer-events-none');
+      renderMemoryBoard();
+    }
+
+    document.getElementById('checkRiddle').addEventListener('click', () => {
+      const ans = document.getElementById('riddleAnswer').value.trim().toLowerCase();
+      const fb = document.getElementById('riddleFeedback');
+      if (ans === 'falisha' || ans === 'pale') {
+        riddleDone = true;
+        fb.innerHTML = '<i data-lucide="check-circle" class="text-green-400"></i> benar!';
+      } else {
+        fb.innerHTML = '<i data-lucide="x-circle" class="text-red-400"></i> coba lagi';
+      }
+      lucide.createIcons();
+      checkAllGames();
+    });
+
+    document.getElementById('checkMath').addEventListener('click', () => {
+      const val = parseInt(document.getElementById('mathAnswer').value, 10);
+      const fb = document.getElementById('mathFeedback');
+      if (val === 15) {
+        mathDone = true;
+        fb.innerHTML = '<i data-lucide="check-circle" class="text-green-400"></i> pintar!';
+      } else {
+        fb.innerHTML = '<i data-lucide="x-circle" class="text-red-400"></i> salah, coba lagi';
+      }
+      lucide.createIcons();
+      checkAllGames();
+    });
+
+    function renderMemoryBoard() {
+      const grid = document.getElementById('memoryGrid');
+      const icons = ['heart', 'cake', 'heart', 'cake'];
+      for (let i = icons.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [icons[i], icons[j]] = [icons[j], icons[i]];
+      }
+      memoryCards = icons.map((icon, idx) => ({ icon, matched: false, idx }));
+      grid.innerHTML = '';
+      memoryCards.forEach((card, index) => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'memory-card';
+        cardDiv.dataset.index = index;
+        cardDiv.innerHTML = '<i data-lucide="help-circle" class="w-8 h-8 text-gray-400"></i>';
+        cardDiv.addEventListener('click', () => onCardClick(index));
+        grid.appendChild(cardDiv);
+      });
+      lucide.createIcons();
+    }
+
+    function onCardClick(index) {
+      if (boardLocked) return;
+      if (memoryCards[index].matched) return;
+      if (flippedIndices.includes(index)) return;
+      if (flippedIndices.length === 2) return;
+
+      const cardDiv = document.querySelector(`.memory-card[data-index="${index}"]`);
+      const iconName = memoryCards[index].icon;
+      cardDiv.innerHTML = `<i data-lucide="${iconName}" class="w-8 h-8 text-[#F5D2D2]"></i>`;
+      cardDiv.classList.add('flipped');
+      lucide.createIcons();
+      flippedIndices.push(index);
+
+      if (flippedIndices.length === 2) {
+        boardLocked = true;
+        const idx1 = flippedIndices[0];
+        const idx2 = flippedIndices[1];
+        const card1 = memoryCards[idx1];
+        const card2 = memoryCards[idx2];
+        if (card1.icon === card2.icon) {
+          card1.matched = true;
+          card2.matched = true;
+          matchedPairs++;
+          document.querySelector(`.memory-card[data-index="${idx1}"]`).classList.add('opacity-60');
+          document.querySelector(`.memory-card[data-index="${idx2}"]`).classList.add('opacity-60');
+          flippedIndices = [];
+          boardLocked = false;
+          if (matchedPairs === 2) {
+            memoryDone = true;
+            document.getElementById('memoryFeedback').innerHTML = '<span class="text-green-500">✔ semua cocok!</span>';
+            checkAllGames();
+          }
+        } else {
+          setTimeout(() => {
+            const div1 = document.querySelector(`.memory-card[data-index="${idx1}"]`);
+            const div2 = document.querySelector(`.memory-card[data-index="${idx2}"]`);
+            div1.innerHTML = '<i data-lucide="help-circle" class="w-8 h-8 text-gray-400"></i>';
+            div2.innerHTML = '<i data-lucide="help-circle" class="w-8 h-8 text-gray-400"></i>';
+            div1.classList.remove('flipped');
+            div2.classList.remove('flipped');
+            flippedIndices = [];
+            boardLocked = false;
+            lucide.createIcons();
+          }, 700);
+        }
+      }
+    }
+
+    function checkAllGames() {
+      if (riddleDone && memoryDone && mathDone) {
+        const btn = document.getElementById('unlockLettersBtn');
+        btn.innerHTML = '<i data-lucide="unlock"></i> lanjut ke surat-surat';
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'pointer-events-none');
+        btn.addEventListener('click', () => goToSlide(4), { once: true });
+      }
+    }
+
+    // surat (slide4)
+    function showLetter(index) {
+      document.getElementById('letterContent').innerText = letters[index];
+      document.getElementById('letterCounter').innerText = `surat ${index+1}/${letters.length}`;
+      if (index === letters.length - 1) {
+        document.getElementById('nextLetterBtn').innerHTML = 'ke penutup <i data-lucide="arrow-right"></i>';
+      } else {
+        document.getElementById('nextLetterBtn').innerHTML = 'selanjutnya <i data-lucide="arrow-right"></i>';
+      }
+      lucide.createIcons();
+    }
+
+    document.getElementById('nextLetterBtn').addEventListener('click', () => {
+      if (currentLetterIndex < letters.length - 1) {
+        currentLetterIndex++;
+        showLetter(currentLetterIndex);
+      } else {
+        goToSlide(5);
+      }
+    });
+
+    // like button slide 5 dengan notifikasi pop-up modern
+    document.getElementById('likeBtn').addEventListener('click', () => {
+      if (like < 100) {
+        like++;
+        document.getElementById('likeCount').innerText = like;
+        if (like === 100 && !notifShown) {
+          notifShown = true;
+          showPopup();
+        }
+      }
+    });
+
+    function showPopup() {
+      // Buat elemen pop-up
+      const popup = document.createElement('div');
+      popup.className = 'popup-notif';
+      popup.id = 'birthdayPopup';
+      
+      // Isi konten
+      popup.innerHTML = `
+        <div class="flex flex-col items-center gap-4">
+          <i data-lucide="cake" class="w-16 h-16 text-[#F5D2D2]"></i>
+          <p class="text-2xl font-bold text-gray-700">Selamat ulang tahun lagii yaa Pale,</p>
+          <p class="text-xl text-gray-600">maaf ya kalau website gua jeleek,</p>
+          <p class="text-xl text-[#AEDEFC] font-semibold">maklum masih junior bukan senior...</p>
+          <div class="flex gap-4 mt-2">
+            <i data-lucide="heart" class="w-8 h-8 text-pink-300 fill-current"></i>
+            <i data-lucide="star" class="w-8 h-8 text-yellow-300 fill-current"></i>
+          </div>
+        </div>
+        <button class="popup-close" id="closePopup">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      `;
+      
+      document.body.appendChild(popup);
+      lucide.createIcons();
+      
+      // Tutup pop-up saat X diklik
+      document.getElementById('closePopup').addEventListener('click', () => {
+        popup.remove();
+      });
+    }
+
+    // tombol dari slide2 ke slide3
+    document.getElementById('toGamesBtn').addEventListener('click', () => goToSlide(3));
+
+    // inisialisasi default slide 1
+    goToSlide(1);
+    lucide.createIcons();
+  })();
+</script>
+</body>
+</html>
